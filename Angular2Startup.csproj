@@ -219,6 +219,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="webpack.config.js" />
+    <Content Include="webpack.helpers.js" />
     <Content Include="wwwroot\src\app\app.component.html" />
     <Content Include="wwwroot\src\app\check\check.component.html" />
     <Content Include="wwwroot\src\app\contract\contract.component.html" />

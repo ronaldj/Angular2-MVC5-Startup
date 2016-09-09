@@ -10,36 +10,37 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var ReplacePlugin = require('replace-webpack-plugin');
 var gutil = require("gulp-util");
 var helpers = require('./webpack.helpers');
+var isProd = process.env.NODE_ENV.indexOf("production") > -1;
 
 module.exports = function makeWebpackConfig() {
     var config = {};
 
-    config.debug = process.env.NODE_ENV != 'production';
+    config.debug = !isProd;
 
     console.log('Running ' + process.env.NODE_ENV + ' config');
 
     if (config.debug) {
         config.devtool = 'source-map';
+        config.output = {
+            path: __dirname + '\\wwwroot\\dist',
+            publicPath: '/',
+            filename: 'js/[name].js',
+            chunkFilename: '[id].chunk.js',
+        }
     } else {
         config.devtool = 'eval-source-map';
+        config.output = {
+            path: 'wwwroot/dist',
+            publicPath: '/',
+            filename: 'js/[name].[hash].js',
+            chunkFilename: '[id].chunk.js',
+        }
     }
 
     config.entry = {
         'polyfills': './wwwroot/src/polyfills.ts',
         'vendor': './wwwroot/src/vendor.ts',
         'app': './wwwroot/src/main.ts',
-    };
-
-    config.output = config.debug ? {
-        path: __dirname + '\\wwwroot\\dist',
-        publicPath: '/',
-        filename: 'js/[name].js',
-        chunkFilename: '[id].chunk.js',
-    } : {
-        path: 'wwwroot/dist',
-        publicPath: '/',
-        filename: 'js/[name].js',
-        chunkFilename: '[id].chunk.js',
     };
 
     config.resolve = {
@@ -108,11 +109,11 @@ module.exports = function makeWebpackConfig() {
             hash: '[hash]',
             output: 'wwwroot/dist/index.html',
             data: {
-                css: '<link rel="stylesheet" type="text/css" href="css/vendor.css" />\n' +
-                    '<link rel="stylesheet" type="text/css" href="css/app.css" />',
-                js: '<script src="js/polyfills.js" type="text/javascript"></script>\n' +
-                    '<script src="js/vendor.js" type="text/javascript"></script>\n' +
-                    '<script src="js/app.js" type="text/javascript"></script>'
+                css: '<link rel="stylesheet" type="text/css" href="css/vendor.[hash].css" />\n' +
+                    '<link rel="stylesheet" type="text/css" href="css/app.[hash].css" />',
+                js: '<script src="js/polyfills.[hash].js" type="text/javascript"></script>\n' +
+                    '<script src="js/vendor.[hash].js" type="text/javascript"></script>\n' +
+                    '<script src="js/app.[hash].js" type="text/javascript"></script>'
             }
         }),
     ];
@@ -123,24 +124,24 @@ module.exports = function makeWebpackConfig() {
           }),
 
           // Extract css files
-          new ExtractTextPlugin('css/[name].css')
+          new ExtractTextPlugin(config.debug ? 'css/[name].css' : 'css/[name].[hash].css')
         );
 
-        config.plugins.push(
-            // Only emit files when there are no errors
-            new webpack.NoErrorsPlugin(),
+    config.plugins.push(
+        // Only emit files when there are no errors
+        new webpack.NoErrorsPlugin(),
 
-            // Dedupe modules in the output
-            new webpack.optimize.DedupePlugin(),
+        // Dedupe modules in the output
+        new webpack.optimize.DedupePlugin(),
 
-            // Minify all javascript, switch loaders to minimizing mode
-            new webpack.optimize.UglifyJsPlugin({ mangle: { keep_fnames: true } }),
+        // Minify all javascript, switch loaders to minimizing mode
+        new webpack.optimize.UglifyJsPlugin({ mangle: { keep_fnames: true } }),
 
-            // Copy assets from the public folder
-            new CopyWebpackPlugin([{
-                from: helpers.root('src/public')
-            }])
-        );
+        // Copy assets from the public folder
+        new CopyWebpackPlugin([{
+            from: helpers.root('src/public')
+        }])
+    );
 
     /**
      * Add vendor prefixes to your css
