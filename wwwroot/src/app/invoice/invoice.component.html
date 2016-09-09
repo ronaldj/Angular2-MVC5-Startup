@@ -1,0 +1,64 @@
+﻿<div role="tabpanel" class="tab-pane fade in active" id="search-container">
+    <form #invoiceSearchForm="ngForm" (ngSubmit)="onRetrieve()">
+        <div class="form-inline">
+            <div class="form-group">
+                <input type="text"
+                       class="form-control left component"
+                       name="number"
+                       [(ngModel)]="invoiceNumber"
+                       placeholder="Invoice"
+                       #number
+                       required />
+            </div>
+
+            <div class="btn-group" role="group">
+                <button class="btn btn-default" type="submit">Retrieve</button>
+                <button class="btn btn-default" [disabled]="!invoiceSearchForm.valid" (click)="page(-1)"><span class="fa fa-chevron-left"></span></button>
+                <button class="btn btn-default" [disabled]="!invoiceSearchForm.valid" (click)="page(1)"><span class="fa fa-chevron-right"></span></button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row" *ngIf="model">
+    <div class="col-xs-12">
+        <hr />
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Vendor Number</th>
+                    <th>Vendor Name</th>
+                    <th>Voucher</th>
+                    <th>Created</th>
+                    <th>Check</th>
+                    <th>Bank</th>
+                    <th>Posted</th>
+                    <th>Cleared</th>
+                    <th class="text-right">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <a (click)="tabService.addVendorTab(model?.vendor.vendorNumber, model?.vendor.vendorSuffix)">{{model?.vendor.vendorNumber}} - {{model?.vendor.vendorSuffix}}</a>
+                        <span class="fa fa-external-link"></span>
+                    </td>
+                    <td>XYZ Corp</td>
+                    <td>
+                        <a (click)="tabService.addDocumentTab(model?.vendor.voucher, model?.vendor.voucherSuffix)">{{model?.vendor.voucher}} - {{model?.vendor.voucherSuffix}}</a>
+                        <span class="fa fa-external-link"></span>
+                    </td>
+                    <td>{{model?.vendor.created}}</td>
+                    <td>
+                        <a (click)="tabService.addCheckTab(model?.vendor.bank, model?.vendor.check)">{{model?.vendor.check}}</a>
+                        <span class="fa fa-external-link"></span>
+                    </td>
+                    <td>{{model?.vendor.bank}}</td>
+                    <td>{{model?.vendor.posted}}</td>
+                    <td>{{model?.vendor.cleared}}</td>
+                    <td class="text-right">{{model?.vendor.amount | currency: 'USD':true:'1.2-2'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,182 @@
+﻿<div role="tabpanel" class="tab-pane fade in active" id="search-container">
+    <form #documentSearchForm="ngForm" (ngSubmit)="onRetrieve()">
+        <div class="form-inline">
+            <div class="form-group">
+                <input type="text"
+                       class="form-control left component"
+                       name="number"
+                       [(ngModel)]="documentNumber"
+                       placeholder="Document"
+                       #number
+                       required />
+                <input type="text"
+                       class="form-control small right component"
+                       name="suffix"
+                       [(ngModel)]="documentSuffix"
+                       #suffix
+                       placeholder="Suffix"
+                       required />
+            </div>
+            <div class="btn-group" role="group">
+                <button class="btn btn-default" type="submit">Retrieve</button>
+                <button class="btn btn-default" [disabled]="!documentSearchForm.valid" (click)="page(-1)"><span class="fa fa-chevron-left"></span></button>
+                <button class="btn btn-default" [disabled]="!documentSearchForm.valid" (click)="page(1)"><span class="fa fa-chevron-right"></span></button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="row" *ngIf="model">
+    <div class="col-xs-8">
+        <hr />
+        <div class="row">
+            <div class="col-xs-8">
+                <h4>{{model?.documentNumber}} {{model?.documentSuffix}}</h4>
+                <h5><em>XYZ Communications, Inc.</em></h5>
+                <h5>Posted by Jane Doe on 06/03/2015 @ 2:06 PM</h5>
+            </div>
+            <div class="col-xs-4">
+                <div class="fam statistic text-right">
+                    <div class="fam-value text-success">$0.00</div>
+                    <div class="fam-label text-gray">Balance</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <h5 class="fam horizontal divider header">
+                    Detail
+                </h5>
+                <dl class="dl-horizontal left-align">
+                    <dt>Fiscal Year</dt>
+                    <dd>{{model?.fiscalYear}}</dd>
+                    <dt>Description</dt>
+                    <dd>{{model?.description}}</dd>
+                    <dt>Start Date</dt>
+                    <dd>{{model?.startDate}}</dd>
+                    <dt>End Date</dt>
+                    <dd>{{model?.endDate}}</dd>
+                    <dt>Transaction Code</dt>
+                    <dd>{{model?.transactionCode}}</dd>
+                    <dt>UOA</dt>
+                    <dd>{{model?.uoa}}</dd>
+                </dl>
+            </div>
+            <div class="col-xs-6">
+                <h5 class="fam horizontal divider header">
+                    Account
+                </h5>
+                <dl class="dl-horizontal left-align">
+                    <dt>Location Code</dt>
+                    <dd>{{model?.locationCode}}</dd>
+                    <dt>Quick Code</dt>
+                    <dd>{{model?.quickCode}}</dd>
+                    <dt>Object Code</dt>
+                    <dd>{{model?.objectCode}}</dd>
+                    <dt>Activity Code</dt>
+                    <dd>{{model?.activityCode}}</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <h5 class="fam horizontal divider header">
+                    Vendor
+                </h5>
+                <dl class="dl-horizontal left-align">
+                    <dt>Number</dt>
+                    <dd>{{model?.vendorNumber}} - {{model?.vendorSuffix}}</dd>
+                    <dt>Name</dt>
+                    <dd>{{model?.vendorName}}</dd>
+                    <dt>Third Party Vendor</dt>
+                    <dd>{{model?.thirdPartyVendor}}</dd>
+                    <dt>Contract</dt>
+                    <dd>
+                        <a (click)="tabService.addContractTab(model?.fiscalYear, model?.contractNumber)">9500000</a>
+                        <span class="fa fa-external-link"></span>
+                    </dd>
+                    <dt>Invoice</dt>
+                    <dd>
+                        <a (click)="tabService.addInvoiceTab(model?.invoiceNumber)">58168462</a>
+                        <span class="fa fa-external-link"></span>
+                    </dd>
+                    <dt>Invoice Date</dt>
+                    <dd>{{model?.invoiceDate}}</dd>
+                </dl>
+            </div>
+            <div class="col-xs-6">
+                <h5 class="fam horizontal divider header">
+                    Payment
+                </h5>
+                <dl class="dl-horizontal left-align">
+                    <dt>Check Number</dt>
+                    <dd>
+                        <a (click)="tabService.addCheckTab(model?.bankNumber, model?.checkNumber)">{{model?.checkNumber}}</a>
+                        <span class="fa fa-external-link"></span>
+                    </dd>
+                    <dt>Bank Number</dt>
+                    <dd>{{model?.bankNumber}}</dd>
+                    <dt>Single Check Payment</dt>
+                    <dd>{{model?.singleCheckPayment}}</dd>
+                    <dt>Hold Check Indicator</dt>
+                    <dd>{{model?.holdCheckIndicator}}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Summary</div>
+            <table class="table table-condensed align right">
+                <tr>
+                    <td>Original Amount</td>
+                    <td>{{model?.originalAmount | currency: 'USD':true:'1.2-2'}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#">Adjustments</a>
+                        <span class="fa fa-external-link"></span>
+                    </td>
+                    <td>{{model?.adjustmentAmount | currency: 'USD':true:'1.2-2'}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#">Liquidations</a>
+                        <span class="fa fa-external-link"></span>
+                    </td>
+                    <td>{{model?.liquidationAmount | currency: 'USD':true:'1.2-2'}}</td>
+                </tr>
+                <tr class="success">
+                    <td>Balance</td>
+                    <td>{{model?.balanceAmount | currency: 'USD':true:'1.2-2'}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#">Payments</a>
+                        <span class="fa fa-external-link"></span>
+                    </td>
+                    <td>{{model?.paymentAmount | currency: 'USD':true:'1.2-2'}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#">Certified (Fully Received)</a>
+                        <span class="fa fa-external-link"></span>
+                    </td>
+                    <td>{{model?.certifiedAmount | currency: 'USD':true:'1.2-2'}}</td>
+                </tr>
+            </table>
+        </div>
+        <hr class="fam fitted top" />
+        <div>
+            <button class="btn btn-default btn-block">Print</button>
+            <button class="btn btn-default btn-block">Check Fee</button>
+            <button *ngIf="model.documentNumber.toUpperCase().startsWith('WI')" 
+                    class="btn btn-default btn-block" 
+                    (click)="tabService.addStopPaymentTab(model?.documentNumber, model?.checkNumber)">Stop/Reissue Payment</button>
+            <button class="btn btn-default btn-block">Notepad</button>
+        </div>
+    </div>
+</div>

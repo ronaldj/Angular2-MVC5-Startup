@@ -1,0 +1,195 @@
+﻿<form #stopPaymentForm="ngForm" (ngSubmit)="onSubmit()">
+    <div role="tabpanel" class="tab-pane fade in active" id="stoppayment">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Stop/Reissue payment request</h3>
+                <hr />
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label>Payment: </label>
+                        {{model?.documentNumber}}
+                    </div>
+                    <div class="form-group">
+                        <label>Check: </label>
+                        {{model?.checkNumber}}
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPersonInput">Name of Contact Person</label>
+                        <input type="text"
+                               class="form-control"
+                               name="contactPerson"
+                               [(ngModel)]="model.contactName"
+                               #contactPerson
+                               placeholder="First and last name"
+                               required />
+
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPersonInput">Email</label>
+                        <input type="text"
+                               class="form-control"
+                               name="email"
+                               [(ngModel)]="model.email"
+                               #email
+                               placeholder="A valid email"
+                               required />
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNumberInput">Phone Number</label>
+                        <input type="text"
+                               class="form-control"
+                               name="phoneNumber"
+                               [(ngModel)]="model.phoneNumber"
+                               #phoneNumber
+                               placeholder="(__) - ___-____"
+                               required />
+                    </div>
+                    <div class="form-group">
+                        <label for="commentInput">Comment</label>
+                        <textarea class="form-control"
+                                  cols="30"
+                                  rows="2"
+                                  name="comment"
+                                  [(ngModel)]="model.comment"
+                                  #comment
+                                  required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Options</label>
+                        <div class="alert alert-info">Be aware that checks can only be reissued <strong>once</strong>.</div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio"
+                                       name="stopPaymentOption"
+                                       [(ngModel)]="model.stopPaymentOption"
+                                       value="stopPaymentOption.StopPaymentOnly" />
+                                Stop payment only
+                                <p class="text-warning">This option is to stop the check <strong>only.</strong> To restore the funds, the check and a cash receipt has to be submitted to the Banking Unit.</p>
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio"
+                                       name="stopPaymentOption"
+                                       [(ngModel)]="model.stopPaymentOption"
+                                       value="stopPaymentOption.StopAndReissuePaymentToOriginalAddress" />
+                                Stop and reissue payment to the <strong>original</strong> address
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio"
+                                       name="stopPaymentOption"
+                                       [(ngModel)]="model.stopPaymentOption"
+                                       value="stopPaymentOption.StopAndReissuePaymentToNewAddress" />
+                                Stop and reissue payment to a <strong>new</strong> address
+                            </label>
+                        </div>
+                    </div>
+                    <hr />
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                <div class="col-xs-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">New Address</div>
+                        <div class="panel-body">
+                            <p>Please be sure the provided new address is correct.</p>
+                            <div class="form-group">
+                                <label for="newAddressInput">Address</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="newAddress"
+                                       [(ngModel)]="model.newAddress"
+                                       #newAddress
+                                       required />
+                            </div>
+                            <div class="form-group">
+                                <label for="newAddressCityInput">City</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="newAddressCity"
+                                       [(ngModel)]="model.newAddressCity"
+                                       #newAddressCity
+                                       required />
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label for="newAddressStateInput">State</label>
+                                        <select name="newAddressState" ([ngModel])="model.state" class="form-control">
+                                            <option value="">Select</option>
+                                            <option value="AL">Alabama</option>
+                                            <option value="AK">Alaska</option>
+                                            <option value="AZ">Arizona</option>
+                                            <option value="AR">Arkansas</option>
+                                            <option value="CA">California</option>
+                                            <option value="CO">Colorado</option>
+                                            <option value="CT">Connecticut</option>
+                                            <option value="DE">Delaware</option>
+                                            <option value="DC">District Of Columbia</option>
+                                            <option value="FL">Florida</option>
+                                            <option value="GA">Georgia</option>
+                                            <option value="HI">Hawaii</option>
+                                            <option value="ID">Idaho</option>
+                                            <option value="IL">Illinois</option>
+                                            <option value="IN">Indiana</option>
+                                            <option value="IA">Iowa</option>
+                                            <option value="KS">Kansas</option>
+                                            <option value="KY">Kentucky</option>
+                                            <option value="LA">Louisiana</option>
+                                            <option value="ME">Maine</option>
+                                            <option value="MD">Maryland</option>
+                                            <option value="MA">Massachusetts</option>
+                                            <option value="MI">Michigan</option>
+                                            <option value="MN">Minnesota</option>
+                                            <option value="MS">Mississippi</option>
+                                            <option value="MO">Missouri</option>
+                                            <option value="MT">Montana</option>
+                                            <option value="NE">Nebraska</option>
+                                            <option value="NV">Nevada</option>
+                                            <option value="NH">New Hampshire</option>
+                                            <option value="NJ">New Jersey</option>
+                                            <option value="NM">New Mexico</option>
+                                            <option value="NY">New York</option>
+                                            <option value="NC">North Carolina</option>
+                                            <option value="ND">North Dakota</option>
+                                            <option value="OH">Ohio</option>
+                                            <option value="OK">Oklahoma</option>
+                                            <option value="OR">Oregon</option>
+                                            <option value="PA">Pennsylvania</option>
+                                            <option value="RI">Rhode Island</option>
+                                            <option value="SC">South Carolina</option>
+                                            <option value="SD">South Dakota</option>
+                                            <option value="TN">Tennessee</option>
+                                            <option value="TX">Texas</option>
+                                            <option value="UT">Utah</option>
+                                            <option value="VT">Vermont</option>
+                                            <option value="VA">Virginia</option>
+                                            <option value="WA">Washington</option>
+                                            <option value="WV">West Virginia</option>
+                                            <option value="WI">Wisconsin</option>
+                                            <option value="WY">Wyoming</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label for="newAddressZipInput">Zip</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               name="newAddressZip"
+                                               [(ngModel)]="model.newAddressZip"
+                                               #newAddressZip
+                                               required />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</form>

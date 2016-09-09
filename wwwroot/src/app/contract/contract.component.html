@@ -1,0 +1,96 @@
+﻿<div role="tabpanel" class="tab-pane fade in active" id="search-container">
+    <form #contractSearchForm="ngForm" (ngSubmit)="onRetrieve()">
+        <div class="form-inline">
+            <div class="form-group">
+                <select name="fiscalYear" [ngModel]="selectedFiscalYear" (ngModelChange)="onFiscalYearChange($event)" class="form-control">
+                    <option value="0">Fiscal Year</option>
+                    <option [value]="fiscalYear" *ngFor="let fiscalYear of fiscalYears">{{fiscalYear}}</option>
+                </select>
+                <input type="text"
+                       class="form-control left component"
+                       name="number"
+                       [(ngModel)]="contractNumber"
+                       placeholder="Contract"
+                       #number
+                       required />
+            </div>
+
+            <div class="btn-group" role="group">
+                <button class="btn btn-default" type="submit">Retrieve</button>
+                <button class="btn btn-default" [disabled]="!contractSearchForm.valid" (click)="page(-1)"><span class="fa fa-chevron-left"></span></button>
+                <button class="btn btn-default" [disabled]="!contractSearchForm.valid" (click)="page(1)"><span class="fa fa-chevron-right"></span></button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row" *ngIf="model">
+    <div class="col-xs-12">
+        <hr />
+        <div class="row">
+            <div class="col-xs-8"><h4>{{model?.description}}</h4></div>
+            <div class="col-xs-4">
+                <button class="btn btn-default pull-right">Notepad</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <h5><strong>Contract Period</strong>: {{model?.contractPeriodStart}} - {{model?.contractPeriodEnd}}</h5>
+                <h5><strong>Estimated Amount</strong>: {{model?.estimatedAmount | currency: 'USD':true:'1.2-2'}}</h5>
+                <h5>
+                    <strong>Vendor</strong>: {{model?.vendor.name}} -
+                    <a (click)="tabService.addVendorTab(model?.vendor.vendorNumber, model?.vendor.vendorSuffix)">{{model?.vendor.vendorNumber}}</a>
+                    <span class="fa fa-external-link"></span>
+                </h5>
+            </div>
+            <div class="col-xs-6">
+                <h5><strong>City Contract Number</strong>: 0000001</h5>
+                <h5><strong>District(s)</strong>: 65</h5>
+                <h5><strong>Type</strong>: Estimate / Professional Services</h5>
+            </div>
+        </div>
+
+        <hr />
+        <div class="row">
+            <div class="col-xs-12">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Document</th>
+                            <th class="text-right">Original Amount</th>
+                            <th class="text-right">Adjustments</th>
+                            <th class="text-right">Payments/Receipts</th>
+                            <th class="text-right">Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let entry of model?.accounting">
+                            <td>
+                                <a (click)="tabService.addDocumentTab(entry.documentNumber, entry.documentSuffix)">{{entry.documentNumber}} - {{entry.documentSuffix}}</a>
+                                <span class="fa fa-external-link"></span>
+                            </td>
+                            <td class="text-right">{{entry.originalAmount | currency: 'USD':true:'1.2-2'}}</td>
+                            <td class="text-right">{{entry.adjustmentAmount | currency: 'USD':true:'1.2-2'}}</td>
+                            <td class="text-right">{{entry.paymentAmount | currency: 'USD':true:'1.2-2'}}</td>
+                            <td class="text-right">{{entry.balanceAmount | currency: 'USD':true:'1.2-2'}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="success">
+                            <td class="text-right"><strong>Total</strong></td>
+                            <td class="text-right">{{originalAmountTotal | currency: 'USD':true:'1.2-2'}}</td>
+                            <td class="text-right">{{adjustmentAmountTotal | currency: 'USD':true:'1.2-2'}}</td>
+                            <td class="text-right">{{paymentAmountTotal | currency: 'USD':true:'1.2-2'}}</td>
+                            <td class="text-right">{{balanceAmountTotal | currency: 'USD':true:'1.2-2'}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <button class="btn btn-default">More...</button>
+            </div>
+        </div>
+    </div>
+</div>

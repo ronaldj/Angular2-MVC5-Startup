@@ -1,0 +1,30 @@
+﻿<div class="fam-tabs filled" id="tab-container">
+    <ul class="nav nav-tabs fam-tabs" role="tablist">
+        <li role="presentation" *ngFor="let tab of tabs" [ngClass]="{'active' : tab.active}">
+            <a (click)="onSelect(tab)" aria-controls="document" role="tab" data-toggle="tab">
+                {{tab.tabName}}
+                <div class="close tab-close" (click)="onRemove(tab)"><span>&times;</span></div>
+            </a>
+        </li>
+        <li role="presentation" class="dropdown dropdown-search">
+            <a href="#Search" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-search"></span> Search
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" id="">
+                <li><a (click)="tabService.addDocumentSearchTab()">Documents</a></li>
+                <li><a (click)="tabService.addContractSearchTab()">Contracts</a></li>
+                <li><a (click)="tabService.addCheckSearchTab()">Checks</a></li>
+                <li><a (click)="tabService.addInvoiceSearchTab()">Invoices</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div style="margin-top: 15px;">
+    <router-outlet></router-outlet>
+</div>
+
+
+<!--<div id="test">
+    <input type="text" [(ngModel)]="phonenumberinput" phone placeholder="(###) ###-####" />
+</div>-->

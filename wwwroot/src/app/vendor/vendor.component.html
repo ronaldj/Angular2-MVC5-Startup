@@ -1,0 +1,37 @@
+﻿<div role="tabpanel" class="tab-pane fade in active" id="search-container">
+    <form #vendorSearchForm="ngForm" (ngSubmit)="onRetrieve()">
+        <div class="form-inline">
+            <div class="form-group">
+                <input type="text"
+                       class="form-control left component"
+                       name="number"
+                       [(ngModel)]="vendorNumber"
+                       placeholder="Vendor"
+                       #number
+                       required />
+                <input type="text"
+                       class="form-control small right component"
+                       name="suffix"
+                       [(ngModel)]="vendorSuffix"
+                       placeholder="Suffix"
+                       #suffix
+                       required />
+            </div>
+
+            <div class="btn-group" role="group">
+                <button class="btn btn-default" type="submit">Retrieve</button>
+                <button class="btn btn-default" [disabled]="!vendorSearchForm.valid" (click)="page(-1)"><span class="fa fa-chevron-left"></span></button>
+                <button class="btn btn-default" [disabled]="!vendorSearchForm.valid" (click)="page(1)"><span class="fa fa-chevron-right"></span></button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row" *ngIf="model">
+    <div class="col-xs-12">
+        <hr />
+        <table class="table table-condensed">
+           mockup not available
+        </table>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+﻿<div role="tabpanel" class="tab-pane fade in active" id="search-container">
+    <form #checkSearchForm="ngForm" (ngSubmit)="onRetrieve()">
+        <div class="form-inline">
+            <div class="form-group">
+                <select name="bankNumber" [ngModel]="selectedBankNumber" (ngModelChange)="onBankNumberChange($event)" class="form-control">
+                    <option value="">Bank Number</option>
+                    <option [value]="bankNumber" *ngFor="let bankNumber of bankNumbers">{{bankNumber}}</option>
+                </select>
+                <input type="text"
+                       class="form-control right component"
+                       name="number"
+                       [(ngModel)]="checkNumber"
+                       placeholder="number"
+                       #number
+                       required />
+            </div>
+
+            <div class="btn-group" role="group">
+                <button class="btn btn-default" type="submit">Retrieve</button>
+                <button class="btn btn-default" [disabled]="!checkSearchForm.valid" (click)="page(-1)"><span class="fa fa-chevron-left"></span></button>
+                <button class="btn btn-default" [disabled]="!checkSearchForm.valid" (click)="page(1)"><span class="fa fa-chevron-right"></span></button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row" *ngIf="model">
+    <div class="col-xs-12">
+        <hr />
+        <table class="table table-condensed">
+           mockup not available
+        </table>
+    </div>
+</div>
