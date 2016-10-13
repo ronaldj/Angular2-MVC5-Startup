@@ -104,7 +104,7 @@ module.exports = function makeWebpackConfig() {
             chunksSortMode: 'dependency'
         }),
         new ReplacePlugin({
-            skip: process.env.NODE_ENV === 'development',
+            skip: config.debug,
             entry: 'views/home/index.cshtml',
             hash: '[hash]',
             output: 'wwwroot/dist/index.html',

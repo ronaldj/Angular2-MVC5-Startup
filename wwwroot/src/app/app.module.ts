@@ -5,7 +5,7 @@ import { FormsModule }   from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { TabService } from './tab/tab.service';
-import { DocumentInquiryRouting } from './app.routes';
+import { AppRoutingModule } from './app-routing.module';
 
 import { DocumentInquiryHomeComponent, DocumentInquiryComponent } from './document-inquiry.component';
 import { DocumentHomeComponent, DocumentComponent } from './document/document.component';
@@ -20,7 +20,7 @@ import { StopPaymentHomeComponent, StopPaymentComponent } from './stop-payment/s
         CommonModule,
         BrowserModule,
         FormsModule,
-        DocumentInquiryRouting
+        AppRoutingModule
     ],
     declarations: [
         AppComponent,

@@ -308,7 +308,6 @@
     <TypeScriptCompile Include="wwwroot\src\app\accounting\accounting.service.ts" />
     <TypeScriptCompile Include="wwwroot\src\app\app.component.ts" />
     <TypeScriptCompile Include="wwwroot\src\app\app.module.ts" />
-    <TypeScriptCompile Include="wwwroot\src\app\app.routes.ts" />
     <TypeScriptCompile Include="wwwroot\src\app\check\check.component.ts" />
     <TypeScriptCompile Include="wwwroot\src\app\check\check.model.ts" />
     <TypeScriptCompile Include="wwwroot\src\app\check\check.service.ts" />
@@ -325,7 +324,7 @@
     <TypeScriptCompile Include="wwwroot\src\app\invoice\invoice.model.ts" />
     <TypeScriptCompile Include="wwwroot\src\app\invoice\invoice.service.ts" />
     <TypeScriptCompile Include="wwwroot\src\app\mask\phone-number.directive.ts" />
-    <TypeScriptCompile Include="wwwroot\src\app\search.routes.ts" />
+    <TypeScriptCompile Include="wwwroot\src\app\app-routing.module.ts" />
     <TypeScriptCompile Include="wwwroot\src\app\shared\api.service.spec.ts" />
     <TypeScriptCompile Include="wwwroot\src\app\shared\api.service.ts" />
     <TypeScriptCompile Include="wwwroot\src\app\shared\index.ts" />

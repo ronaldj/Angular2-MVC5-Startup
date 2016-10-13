@@ -1,4 +1,4 @@
-import 'es6-shim';
+import 'core-js';
 import 'reflect-metadata';
 import 'jquery/dist/jquery.js';
 import 'ts-helpers';
